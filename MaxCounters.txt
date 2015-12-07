@@ -1,0 +1,66 @@
+/**
+version1
+*/	
+import java.util.*;
+class MaxCounters {
+
+	 public void setMax(int[] x,int maxValue){
+        for(int i = 0 ; i < x.length ; i++){
+        	x[i] = maxValue;
+        }
+    }
+
+    public int[] mc(int n, int[] a) {
+       int maxCounter=0;
+       int[] x = new int[n];
+
+       for(int i=0;i<a.length;i++){
+
+            if(a[i]==n+1){
+            setMax(x, maxCounter);
+
+            }else{
+                x[a[i]-1]++;
+                if(maxCounter < x[a[i]-1]){
+                   maxCounter = x[a[i]-1];
+
+                }
+            }
+        }
+    return x;
+
+    }
+	
+/**
+version2
+*/	
+
+class MaxCounters {
+    public int[] mc(int n, int[] a) {
+        int[] x = new int[n];
+        int maxCounter = 0;
+        int max = 0;
+        
+        for (int i=0; i<a.length; i++) {
+            if (a[i]==n+1) {
+                if ((i < a.length-1 && a[i+1] != n+1) || (i==a.length-1)) {
+                    max += maxCounter;
+                    maxCounter = 0;
+                    x = new int[n];
+                }
+            } else {
+                x[a[i]-1]++;
+                if (maxCounter < x[a[i]-1])
+                    maxCounter = x[a[i]-1];
+            }
+        }
+        
+        for (int i=0; i<x.length; i++)
+            x[i] += max;
+        
+        return x;
+    }
+}
+
+
+}

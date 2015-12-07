@@ -1,0 +1,65 @@
+/**
+version1
+*/
+import java.*;
+class MinAvgTwoSlice {
+    public int minAvgTwoSlice(int[] A) {
+        int index = 0;
+        int x = A.length;
+        int [] array = new int [x+1];
+        for (int i = 1; i < array.length; i++) {
+            array[i] = array[i-1] + A[i-1];
+        }
+        double average = Double.MAX_VALUE;
+        for (int i = 1; i < x; i++) {
+            for (int j = i+1; j <= x ; j++) {
+                double temp = (double)(array[j]-array[i-1]) /(double)(j-i+1);
+                if (temp < average) {
+                    average = temp;
+                    index = i-1;
+                }
+            }
+        }
+        return index;
+    }
+}
+
+/**
+version2
+*/
+import java.*;
+class MinAvgTwoSlice {
+    public int minAvgTwoSlice(int[] A) {
+        int index=0;
+		int x = A.length;
+        double average =( A[0]+A[1])/2; 
+        double current;
+        for(int i=0; i< x-2; i++){
+    
+            current = ((double)(A[i] + A[i+1]))/2;
+            if(current < average){
+                average = current;
+                index = i;
+            }
+
+            current = ((double)(A[i] + A[i+1] + A[i+2]))/3;
+            if(current < average){
+                average = current;
+                index = i;
+            }
+        }
+
+        current = ((double)(A[A.length-2] + A[A.length-1]))/2;
+        if(current < average){
+            average = current;
+            index = A.length-2;
+        }
+        return index;
+    }
+}
+
+
+
+
+
+
